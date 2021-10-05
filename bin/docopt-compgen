@@ -1,0 +1,65 @@
+#!/usr/bin/env ruby
+trap(:SIGINT) { puts; exit 130 }
+Signal.trap(:SIGPIPE, :SYSTEM_DEFAULT)
+require 'docopt'
+
+usage = <<~EOF
+    Usage:
+        #{File.basename($0)} [options] [<command>]
+
+    Options:
+        --command-name NAME    Command name
+                               If not specified then the slugified basename of <command> will be used
+        --namespace NAME       Prefix for generated bash functions [default: cmd]
+        -h, --help             Show help
+EOF
+
+begin
+    opts = Docopt.docopt(usage)
+rescue Docopt::Exit
+    puts usage
+    exit 2
+end
+
+require 'colorize'
+
+if $stdin.tty?
+    command = opts['<command>']
+    if command.nil?
+        $stderr.puts 'Error: <command> is mandatory when not passing help via stdin'.red
+        puts usage
+        exit 1
+    end
+
+    begin
+        help = `#{command} --help`
+    rescue => e
+        $stderr.puts e.to_s.red
+        exit 1
+    end
+else
+    if !opts['--command-name']
+        $stderr.puts 'Error: --command-name is mandatory when passing help via stdin'.red
+        puts usage
+        exit 1
+    end
+
+    help = $stdin.read
+end
+
+if help.nil? || help.lines.first !~ /Usage:/
+    $stderr.puts 'Unable to parse help output from "%s"'.red % command
+    exit 1
+end
+
+require_relative '../lib/docopt-compgen'
+
+parser = DocoptCompgen::Parser.new(help)
+generator = DocoptCompgen::Generator.new(
+    command,
+    parser.to_node,
+    command_name: opts['--command-name'],
+    namespace: opts['--namespace'],
+)
+
+puts generator.to_s
