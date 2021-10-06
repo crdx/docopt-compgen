@@ -41,11 +41,13 @@ docopt-compgen example
 
 ### Pass in help text via stdin
 
-Input can also be passed in via stdin. The `--command-name` flag is mandatory in that case to specify the command name that should be completed. A future version will extract the command name from the help text itself.
+Input can also be passed in via stdin.
 
 ```bash
-echo -e "Usage:\n    example --flag" | docopt-compgen --command-name example
+echo -e "Usage:\n    example --flag" | docopt-compgen
 ```
+
+The name of the command will be extracted from the help text but can be overridden with `--command-name` if desired.
 
 ## Bugs or contributions
 

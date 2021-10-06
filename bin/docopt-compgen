@@ -23,6 +23,11 @@ end
 
 require 'colorize'
 
+def extract_command_name(usage)
+    matches = /Usage:\s*(\S+)/.match(usage)
+    matches[1] if matches
+end
+
 if $stdin.tty?
     command = opts['<command>']
     if command.nil?
@@ -32,33 +37,35 @@ if $stdin.tty?
     end
 
     begin
-        help = `#{command} --help`
+        usage = `#{command} --help`
     rescue => e
         $stderr.puts e.to_s.red
         exit 1
     end
+
+    command_name = opts['--command-name']
 else
-    if !opts['--command-name']
-        $stderr.puts 'Error: --command-name is mandatory when passing help via stdin'.red
-        puts usage
+    usage = $stdin.read
+    command_name = extract_command_name(usage)
+
+    if command_name.nil?
+        $stderr.puts 'Error: Unable to parse command name from usage output'.red
         exit 1
     end
-
-    help = $stdin.read
 end
 
-if help.nil? || help.lines.first !~ /Usage:/
-    $stderr.puts 'Unable to parse help output from "%s"'.red % command
+if usage.nil? || usage.lines.first !~ /Usage:/
+    $stderr.puts 'Unable to parse usage output from "%s"'.red % command
     exit 1
 end
 
 require_relative '../lib/docopt-compgen'
 
-parser = DocoptCompgen::Parser.new(help)
+parser = DocoptCompgen::Parser.new(usage)
 generator = DocoptCompgen::Generator.new(
     command,
     parser.to_node,
-    command_name: opts['--command-name'],
+    command_name: command_name,
     namespace: opts['--namespace'],
 )
 
