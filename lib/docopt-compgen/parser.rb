@@ -1,7 +1,8 @@
 module DocoptCompgen
     class Parser
-        def initialize(help)
+        def initialize(help, complete_short: false)
             @help = help
+            @complete_short = complete_short
         end
 
         def to_node
@@ -55,17 +56,15 @@ module DocoptCompgen
                 end
             end
 
-            # rubocop:disable Style/SoleNestedConditional
             if [Docopt::Option].include?(pattern.class)
-                # if pattern.short
-                #     node.add_option(pattern.short)
-                # end
+                if pattern.short && @complete_short
+                    node.add_option(pattern.short)
+                end
 
                 if pattern.long
                     node.add_option(pattern.long)
                 end
             end
-            # rubocop:enable Style/SoleNestedConditional
 
             if [Docopt::Argument].include?(pattern.class)
                 node.add_argument(pattern.name)

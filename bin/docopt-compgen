@@ -8,6 +8,7 @@ usage = <<~EOF
         #{File.basename($0)} [options] [<command>]
 
     Options:
+        --complete-short       Complete short options (long options are always completed)
         --command-name NAME    Command name
                                If not specified then the slugified basename of <command> will be used
         --namespace NAME       Prefix for generated bash functions [default: cmd]
@@ -61,7 +62,7 @@ end
 
 require_relative '../lib/docopt-compgen'
 
-parser = DocoptCompgen::Parser.new(usage)
+parser = DocoptCompgen::Parser.new(usage, complete_short: opts['--complete-short'])
 generator = DocoptCompgen::Generator.new(
     command,
     parser.to_node,
