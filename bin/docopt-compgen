@@ -60,7 +60,7 @@ if usage.nil? || usage.lines.first !~ /Usage:/
     exit 1
 end
 
-require_relative '../lib/docopt-compgen'
+require_relative '../lib/docopt_compgen'
 
 parser = DocoptCompgen::Parser.new(usage, complete_short: opts['--complete-short'])
 generator = DocoptCompgen::Generator.new(

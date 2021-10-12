@@ -1,12 +1,14 @@
-require_relative 'lib/docopt-compgen/version'
+require_relative 'lib/docopt_compgen/version'
 
 Gem::Specification.new do |spec|
     spec.homepage = 'https://github.com/crdx/docopt-compgen'
-    spec.summary  = 'docopt completion generator'
-    spec.name     = 'docopt-compgen'
-    spec.version  = DocoptCompgen::VERSION
-    spec.author   = 'crdx'
-    spec.license  = 'MIT'
+    spec.summary = 'docopt completion generator'
+    spec.name = 'docopt-compgen'
+    spec.version = DocoptCompgen::VERSION
+    spec.author = 'crdx'
+    spec.license = 'MIT'
+
+    spec.required_ruby_version = '>= 3.0'
 
     spec.files = Dir['lib/**/*']
     spec.executables = ['docopt-compgen']

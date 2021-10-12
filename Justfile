@@ -22,3 +22,7 @@ release:
 # run the gem's binary
 run +args:
     {{ BIN }} "{{ args }}"
+
+# run linter
+lint:
+    rubocop
