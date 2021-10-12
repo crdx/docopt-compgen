@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    docopt-compgen (1.2.0)
+    docopt-compgen (1.2.1)
       colorize (~> 0.8.1)
       docopt (~> 0.6.1)
 
