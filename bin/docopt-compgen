@@ -12,6 +12,7 @@ usage = <<~EOF
         --command-name NAME    Command name
                                If not specified then the slugified basename of <command> will be used
         --namespace NAME       Prefix for generated bash functions [default: cmd]
+        -v, --version          Show version
         -h, --help             Show help
 EOF
 
@@ -20,6 +21,13 @@ begin
 rescue Docopt::Exit
     puts usage
     exit 2
+end
+
+require_relative '../lib/docopt_compgen'
+
+if opts['--version']
+    puts DocoptCompgen::VERSION
+    exit
 end
 
 require 'colorize'
@@ -59,8 +67,6 @@ if usage.nil? || usage.lines.first !~ /Usage:/
     $stderr.puts 'Unable to parse usage output from "%s"'.red % command
     exit 1
 end
-
-require_relative '../lib/docopt_compgen'
 
 parser = DocoptCompgen::Parser.new(usage, complete_short: opts['--complete-short'])
 generator = DocoptCompgen::Generator.new(
