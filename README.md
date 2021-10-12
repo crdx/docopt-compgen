@@ -23,9 +23,10 @@ Usage:
     docopt-compgen [options] [<command>]
 
 Options:
+    --complete-short       Complete short options (long options are always completed)
     --command-name NAME    Command name
                            If not specified then the slugified basename of <command> will be used
-    --namespace NAME       Prefix for generated functions [default: cmd]
+    --namespace NAME       Prefix for generated bash functions [default: cmd]
     -h, --help             Show help
 ```
 
