@@ -2,10 +2,11 @@
 trap(:SIGINT) { puts; exit 130 }
 Signal.trap(:SIGPIPE, :SYSTEM_DEFAULT)
 require 'docopt'
+PROGRAM_NAME = File.basename($PROGRAM_NAME)
 
 usage = <<~EOF
     Usage:
-        #{File.basename($0)} [options] [<command>]
+        #{PROGRAM_NAME} [options] [<command>]
 
     Options:
         --complete-short       Complete short options (long options are always completed)
