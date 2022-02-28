@@ -26,3 +26,7 @@ run +args:
 # run linter
 lint:
     rubocop
+
+# fix lint errors
+fix:
+    rubocop -a
