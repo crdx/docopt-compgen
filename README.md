@@ -51,7 +51,7 @@ echo -e "Usage:\n    example --flag" | docopt-compgen
 
 The name of the command will be extracted from the help text but can be overridden with `--command-name` if desired.
 
-## Bugs or contributions
+## Contributions
 
 Open an [issue](https://github.com/crdx/docopt-compgen/issues) or send a [pull request](https://github.com/crdx/docopt-compgen/pulls).
 
