@@ -57,4 +57,4 @@ Open an [issue](https://github.com/crdx/docopt-compgen/issues) or send a [pull r
 
 ## Licence
 
-[MIT](LICENCE.md).
+[GPLv3](LICENCE).
