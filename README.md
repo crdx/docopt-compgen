@@ -23,6 +23,7 @@ Usage:
     docopt-compgen [options] [<command>]
 
 Options:
+    -o, --out PATH         Output completion to PATH instead of stdout
     --complete-short       Complete short options (long options are always completed)
     --command-name NAME    Command name
                            If not specified then the slugified basename of <command> will be used
