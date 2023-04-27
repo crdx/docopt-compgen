@@ -1,10 +1,11 @@
 module DocoptCompgen
     class Generator
-        def initialize(command, node, command_name: nil, namespace: nil)
+        def initialize(command, node, command_name: nil, namespace: nil, header: nil)
             @command = command ? File.basename(command) : command_name
             @node = node
             @command_name = command_name || Util.slugify(@command)
             @namespace = '_' + namespace
+            @header = header
         end
 
         def indent(str, level)
@@ -119,7 +120,7 @@ module DocoptCompgen
             return <<~EOF
                 #!/bin/bash
                 # shellcheck disable=SC2207
-
+                #{@header ? @header + "\n" : ''}
                 #{content}
                 complete -o bashdefault -o default -o filenames -F #{@namespace}_#{@command_name} #{@command}
             EOF
