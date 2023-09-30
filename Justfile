@@ -1,7 +1,8 @@
 BIN := 'bundle exec ruby -Ilib bin/docopt-compgen'
 
-_help:
-    @just --list --unsorted
+[private]
+@help:
+    just --list --unsorted
 
 # build gem
 build:
