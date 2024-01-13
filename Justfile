@@ -1,9 +1,11 @@
+set quiet
+
 BIN := 'bundle exec ruby -Ilib bin/docopt-compgen'
 
 import? 'internal.just'
 
 [private]
-@help:
+help:
     just --list --unsorted
 
 # build gem
