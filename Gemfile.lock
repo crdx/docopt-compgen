@@ -10,7 +10,7 @@ GEM
   specs:
     colorize (0.8.1)
     docopt (0.6.1)
-    rake (13.0.6)
+    rake (13.1.0)
 
 PLATFORMS
   ruby
