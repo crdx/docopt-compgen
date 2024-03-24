@@ -30,7 +30,6 @@ Options:
     --namespace NAME       Prefix for generated bash functions [default: cmd]
     --header TEXT          Header to insert at the start of the completion script
     -v, --version          Show version
-    -h, --help             Show help
 ```
 
 ## Examples
