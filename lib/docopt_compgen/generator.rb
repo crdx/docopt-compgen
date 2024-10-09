@@ -9,7 +9,7 @@ module DocoptCompgen
         end
 
         def indent(str, level)
-            "\n" + str.strip.lines.map { |s| (' ' * level) + s }.join
+            "\n" + str.strip.lines.map { (' ' * level) + _1 }.join
         end
 
         def get_op(node)
@@ -21,11 +21,11 @@ module DocoptCompgen
         end
 
         def path_arguments?(arguments)
-            arguments.any? { |a| %w[<file> <dir> <path>].include?(a) }
+            arguments.any? { %w[<file> <dir> <path>].include?(_1) }
         end
 
         def path_options?(options)
-            options.any? { |a| %w[--file --dir --path].include?(a) }
+            options.any? { %w[--file --dir --path].include?(_1) }
         end
 
         def include_files?(node)
