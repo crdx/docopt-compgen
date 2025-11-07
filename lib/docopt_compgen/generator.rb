@@ -120,7 +120,7 @@ module DocoptCompgen
             return <<~EOF
                 #!/bin/bash
                 # shellcheck disable=SC2207
-                #{@header ? @header + "\n" : ''}
+                #{@header + "\n" if @header}
                 #{content}
                 complete -o bashdefault -o default -o filenames -F #{@namespace}_#{@command_name} #{@command}
             EOF
